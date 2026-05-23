@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Default title{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="{% url 'articles:list' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" width="50">
+                    <span>MyBlog</span>
+                </a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="{% url 'articles:list' %}">Статьи</a></li>
+                <li><a href="{% url 'admin:index' %}">Админ панель</a></li>
+            </ul>
+        </nav>
+    </header>
+{% block content %}{% endblock content %}
+</body>
+</html>
