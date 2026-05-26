@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 def signup_view(request):
@@ -25,7 +26,9 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return HttpResponseRedirect("/articles")
+            if 'next' in request.POST:
+                return redirect (request.POST['next'])
+            return redirect('homepage')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {"form": form})

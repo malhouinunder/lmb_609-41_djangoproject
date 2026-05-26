@@ -2,23 +2,6 @@
 {% block title %}{{ article.title }}{% endblock title %}
 {% block content %}
 <main>
-    <nav>
-        <ul>
-            {% if user.is_authenticated %}
-            <li>
-                <form class="form" action="/accounts/logout/" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
-            </li>
-            {% else %}
-                <li>
-                    <a href="{% url 'login' %}">Login</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-
     <h1>Article List</h1>
 
     <div class="articles">
@@ -35,6 +18,16 @@
                 <time>
                     {{ element.date }}
                 </time>
+
+                {% if user.is_authenticated %}
+                    <h2>
+                        <a href="{% url 'articles:create'%}">Create article</a>
+                    </h2>
+                {% else %}
+                    <li>
+                        <a href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

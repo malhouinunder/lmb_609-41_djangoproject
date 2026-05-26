@@ -10,15 +10,49 @@
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="{% url 'articles:list' %}">
+                <a href="{% url 'homepage' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Logo" width="50">
                     <span>MyBlog</span>
                 </a>
             </div>
 
             <ul class="nav-links">
-                <li><a href="{% url 'articles:list' %}">Статьи</a></li>
+                <li><a href="{% url 'homepage' %}">Статьи</a></li>
                 <li><a href="{% url 'admin:index' %}">Админ панель</a></li>
+            </ul>
+        </nav>
+        <nav class="container">
+            <ul>
+                <li>
+                    <a href="{% url 'homepage' %}">Homepage</a>
+                </li>
+                <li>
+                    <a href="{% url 'homepage' %}">Article list</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">About</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <form class="form" action="{% url 'accounts:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'articles:create' %}">Create article</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </header>
